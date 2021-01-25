@@ -6,6 +6,9 @@ import Home from "./components/Home";
 import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
+import Detail from "./components/Detail";
+import products from "./products";
+import ProductDetail from "./components/ProductDetail";
 
 const theme = {
   light: {
@@ -24,6 +27,7 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
+  const [product, setProduct] = useState(products[0]);
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
@@ -35,7 +39,9 @@ function App() {
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
       <Home />
-      <ProductList />
+      <ProductList setProduct={setProduct}/>
+      <Detail />
+      <ProductDetail product={product}/>
     </ThemeProvider>
   );
 }
