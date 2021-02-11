@@ -6,9 +6,10 @@ import Home from "./components/Home";
 import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
-import Detail from "./components/Detail";
-import products from "./products";
+// import Detail from "./components/Detail";
+// import products from "./products";
 import ProductDetail from "./components/ProductDetail";
+// import ProductItem from "./components/ProductItem";
 
 const theme = {
   light: {
@@ -25,12 +26,25 @@ const theme = {
   },
 };
 
+
+
 function App() {
+
+  // const product = products[0];
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [product, setProduct] = useState(products[0]);
+  const [product, setProduct] = useState(null);
+
+  // const setView = () => {
+  //   if (product) return <ProductDetail product={product} />;
+  //   return <ProductList setProduct={setProduct} />;
+  // };
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
+
+    const display = product ? (
+    <ProductDetail product={product} setProduct={setProduct} />
+    ) : <ProductList setProduct={setProduct} />;
 
   return (
     <ThemeProvider theme={theme[currentTheme]}>
@@ -39,11 +53,19 @@ function App() {
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
       <Home />
-      <ProductList setProduct={setProduct}/>
-      <Detail />
-      <ProductDetail product={product}/>
+      {display}
+      
     </ThemeProvider>
   );
 }
 
 export default App;
+
+
+
+// {setView()}
+
+/* <ProductItem product={product} key={product.id} setProduct={props.setProduct} /> */
+
+      
+      /* <ProductDetail product={product}/> */
